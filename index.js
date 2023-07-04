@@ -64,3 +64,10 @@ app.get('/usuarios', (req, res) => {
 app.listen(PORT, () => {
   console.log('Servidor inicado correctamente en el puerto ' + PORT);
 });
+
+
+
+/*
+
+axios.post('/api/', {nombre, apellido});
+*/
