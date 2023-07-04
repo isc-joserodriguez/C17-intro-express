@@ -1,0 +1,23 @@
+{
+  "name": "c17-intro-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isc-joserodriguez/C17-intro-express.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isc-joserodriguez/C17-intro-express/issues"
+  },
+  "homepage": "https://github.com/isc-joserodriguez/C17-intro-express#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
