@@ -90,14 +90,14 @@ app.post('/usuarios', (req, res) => {
 }); */
 
 //! GET - Obtener todos los usuarios
-app.get('/obtenerTodosLosUsuarios', (req, res) => {
+app.get('/users', (req, res) => {
   res.json({
     message: usuarios,
   });
 });
 
 //! GET - Obtener un usuario por su ID
-app.get('/obtenerUnUsuarioPorSuId/:id');
+app.get('/users/:id');
 
 
 //! 5.- Iniciar Servidor
