@@ -2,7 +2,32 @@
 const express = require('express');
 const PORT = 3001;
 
-const usuarios = [];
+const usuarios = [
+  {
+    id: 1,
+    nombre: 'Pedro',
+    apellido: 'Ramírez',
+    edad: 19,
+  },
+  {
+    id: 2,
+    nombre: 'María',
+    apellido: 'Perez',
+    edad: 50,
+  },
+  {
+    id: 3,
+    nombre: 'César',
+    apellido: 'Martinez',
+    edad: 10,
+  },
+  {
+    id: 4,
+    nombre: 'Carla',
+    apellido: 'Godinez',
+    edad: 30,
+  },
+];
 
 //! 2.- Instanciar aplicación de express.
 const app = express();
@@ -53,12 +78,28 @@ app.post('/usuarios', (req, res) => {
   });
 });
 
+
+
+//! #################################
+/* app.post('/login', (req, res) => { 
+  const { email, password } = req.body;
+  //! Hacer lo necesario para un login.
+  res.json({
+    mensaje: 'Has iniciado sesión correctamente',
+    token: 'a89mafh70sd9hfm0a.nfasfjhiashfiashf98ashf.an9ndfasfasfaspofma'
+  });
+}); */
+
 //! GET - Obtener todos los usuarios
 app.get('/usuarios', (req, res) => {
   res.json({
     message: usuarios,
   });
 });
+
+//! GET - Obtener un usuario por su ID
+
+
 
 //! 5.- Iniciar Servidor
 app.listen(PORT, () => {
