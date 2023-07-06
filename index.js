@@ -13,7 +13,7 @@ const usuarios = [
     id: 2,
     nombre: 'María',
     apellido: 'Perez',
-    edad: 50,
+    edad: 19,
   },
   {
     id: 3,
@@ -32,12 +32,11 @@ const usuarios = [
 //! 2.- Instanciar aplicación de express.
 const app = express();
 
-//! 3.- XXXXXXXXXX
+//! 3.- Agregar "funciones especiales"
+app.use(express.json());
 
-//! 4.- Configurar las rutas safsdfs
+//! 4.- Configurar las rutas
 //* Endponts
-//! GET, POST, PUT, DELETE
-
 app.get('/', (req, res) => {
   res.json({
     mensaje: 'Hola Mundo!',
@@ -47,13 +46,7 @@ app.get('/', (req, res) => {
 //! GET - Obtener todos los usuarios & Como filtro (Query string)
 app.get('/users', (req, res) => {
   const { id, nombre, apellido, edad } = req.query;
-  const filter = {
-    id,
-    nombre,
-    apellido,
-    edad,
-  };
-  console.log(filter);
+
   if (id || nombre || apellido || edad) {
     res.json({
       message: usuarios.filter((usuario) => {
@@ -91,6 +84,7 @@ app.get('/users', (req, res) => {
         }
         return encontrado;
       }),
+      //Mongoose ODM
     });
   } else {
     res.json({
@@ -102,31 +96,60 @@ app.get('/users', (req, res) => {
 //! GET - Obtener un usuario por su ID
 app.get('/users/:id', (req, res) => {
   const { id } = req.params;
-  //! Buscar el id dentro del array de usuarios.
+  res.json({
+    message: usuarios.filter((usuario) => usuario.id === Number(id))[0],
+  });
+});
+
+//! POST
+app.post('/users', (req, res) => {
+  const { id, nombre, apellido, edad } = req.body;
+  if (!id || !nombre || !apellido || !edad) {
+    res.json({
+      mensaje: 'Datos incompletos',
+    });
+  }
+  usuarios.push({ id, nombre, apellido, edad });
+  res.json({
+    mensaje: 'Usuario guardados',
+    user: { id, nombre, apellido, edad },
+    usuarios,
+  });
 });
 
 //! PUT - Actualizar elementos /usuarios/:id
-//! DELETE - Eliminar elementos /usuarios/:id
-//*
-//! POST - Crear elementos /usuarios
-app.post('/usuarios', (req, res) => {
-  const { name, lastname, age } = req.query;
-  usuarios.push({ name, lastname, age });
+app.put('/users/:id', (req, res) => {
+  const { id } = req.params;
+  const index = usuarios.findIndex((user) => user.id === Number(id));
+
+  if (index === -1) {
+    return res.json({
+      mensaje: 'No existe el ususario con id: ' + id,
+    });
+  }
+
+  const { nombre, apellido, edad } = req.body;
+
+  if (!nombre || !apellido || !edad) {
+    return res.json({
+      mensaje: 'No hay nada para modificar',
+    });
+  }
+
+  usuarios[index] = {
+    id: usuarios[index].id,
+    nombre: nombre || usuarios[index].nombre,
+    edad: edad || usuarios[index].edad,
+    apellido: apellido || usuarios[index].apellido,
+  };
+
   res.json({
-    message: 'Se agregó correctamente al usuario',
+    mensaje: 'Se actualizó el usuario correctamente',
+    newUser: usuarios[index],
   });
 });
-
-//! #################################
-/* app.post('/login', (req, res) => { 
-  const { email, password } = req.body;
-  //! Hacer lo necesario para un login.
-  //Logica necesaria para hacer X cosa.
-  res.json({
-    mensaje: 'Has iniciado sesión correctamente',
-    token: 'a89mafh70sd9hfm0a.nfasfjhiashfiashf98ashf.an9ndfasfasfaspofma'
-  });
-}); */
+//! DELETE - Eliminar elementos /usuarios/:id
+app.delete('/users', (req, res) => {});
 
 //! 5.- Iniciar Servidor
 app.listen(PORT, () => {
@@ -164,3 +187,16 @@ PUT - /alumnos/:id
 Delete
 DELETE - /alumnos/:id
 */
+
+
+
+//! #################################
+/* app.post('/login', (req, res) => { 
+  const { email, password } = req.body;
+  //! Hacer lo necesario para un login.
+  //Logica necesaria para hacer X cosa.
+  res.json({
+    mensaje: 'Has iniciado sesión correctamente',
+    token: 'a89mafh70sd9hfm0a.nfasfjhiashfiashf98ashf.an9ndfasfasfaspofma'
+  });
+}); */
