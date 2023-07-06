@@ -78,12 +78,11 @@ app.post('/usuarios', (req, res) => {
   });
 });
 
-
-
 //! #################################
 /* app.post('/login', (req, res) => { 
   const { email, password } = req.body;
   //! Hacer lo necesario para un login.
+  //Logica necesaria para hacer X cosa.
   res.json({
     mensaje: 'Has iniciado sesión correctamente',
     token: 'a89mafh70sd9hfm0a.nfasfjhiashfiashf98ashf.an9ndfasfasfaspofma'
@@ -91,14 +90,14 @@ app.post('/usuarios', (req, res) => {
 }); */
 
 //! GET - Obtener todos los usuarios
-app.get('/usuarios', (req, res) => {
+app.get('/obtenerTodosLosUsuarios', (req, res) => {
   res.json({
     message: usuarios,
   });
 });
 
 //! GET - Obtener un usuario por su ID
-
+app.get('/obtenerUnUsuarioPorSuId/:id');
 
 
 //! 5.- Iniciar Servidor
@@ -111,4 +110,32 @@ app.listen(PORT, () => {
 /*
 
 axios.post('/api/', {nombre, apellido});
+*/
+
+
+/*
+! Entidad - autos
+Create
+POST - /autos
+Read
+GET - /autos/:id
+
+GET - /autos?modelo=v3&marca=tesla&año=2020
+GET - /autos
+Update
+PUT - /autos/:id
+Delete
+DELETE - /autos/:id
+
+! Entidad - alumnos
+Create
+POST - /alumnos
+Read
+GET - /alumnos/:id
+GET - /alumnos?modelo=v3&marca=tesla&año=2020
+GET - /alumnos
+Update
+PUT - /alumnos/:id
+Delete
+DELETE - /alumnos/:id
 */
