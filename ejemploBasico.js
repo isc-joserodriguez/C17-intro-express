@@ -44,67 +44,28 @@ app.get('/', (req, res) => {
   });
 });
 
-//! GET - Obtener todos los usuarios & Como filtro (Query string)
-app.get('/users', (req, res) => {
-  const { id, nombre, apellido, edad } = req.query;
-  const filter = {
-    id,
-    nombre,
-    apellido,
-    edad,
-  };
-  console.log(filter);
-  if (id || nombre || apellido || edad) {
-    res.json({
-      message: usuarios.filter((usuario) => {
-        let encontrado = true;
-        if (id) {
-          if (usuario.id === Number(id)) {
-            encontrado = encontrado && true;
-          } else {
-            encontrado = false;
-          }
-        }
+app.get('/hola/:nombre/:apellido', (request, response) => {
+  const { nombre, apellido } = request.params;
+  //! La creación de un usuario
+  //! Buscar un usuario por nombre y apellido y regresar la info
+  //! Actualizar la info de un usuario
 
-        if (nombre) {
-          if (usuario.nombre === nombre) {
-            encontrado = encontrado && true;
-          } else {
-            encontrado = false;
-          }
-        }
-
-        if (apellido) {
-          if (usuario.apellido === apellido) {
-            encontrado = encontrado && true;
-          } else {
-            encontrado = false;
-          }
-        }
-
-        if (edad) {
-          if (usuario.edad === Number(edad)) {
-            encontrado = encontrado && true;
-          } else {
-            encontrado = false;
-          }
-        }
-        return encontrado;
-      }),
-    });
-  } else {
-    res.json({
-      message: usuarios,
-    });
-  }
+  response.json({
+    mensaje: `Hola ${nombre} ${apellido}!`,
+  });
 });
 
-//! GET - Obtener un usuario por su ID
-app.get('/users/:id', (req, res) => {
-  const { id } = req.params;
-  //! Buscar el id dentro del array de usuarios.
+app.get('/hola/:nombre/:apellido/:edad', (request, response) => {
+  const { nombre, apellido, edad } = request.params;
+
+  usuarios.push({ nombre, apellido, edad });
+
+  response.json({
+    usuarios,
+  });
 });
 
+//! GET - Obtener elementos /usuarios || /usuarios/:id
 //! PUT - Actualizar elementos /usuarios/:id
 //! DELETE - Eliminar elementos /usuarios/:id
 //*
@@ -128,15 +89,29 @@ app.post('/usuarios', (req, res) => {
   });
 }); */
 
+//! GET - Obtener todos los usuarios
+app.get('/users', (req, res) => {
+  res.json({
+    message: usuarios,
+  });
+});
+
+//! GET - Obtener un usuario por su ID
+app.get('/users/:id');
+
+
 //! 5.- Iniciar Servidor
 app.listen(PORT, () => {
   console.log('Servidor inicado correctamente en el puerto ' + PORT);
 });
 
+
+
 /*
 
 axios.post('/api/', {nombre, apellido});
 */
+
 
 /*
 ! Entidad - autos
